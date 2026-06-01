@@ -1,41 +1,61 @@
 #include <stdio.h>
 
 int main() {
+    //variable declaration
     float num1, num2;
-    char operator;
+    char op;
+    char choice;
 
-    printf("Please Enter first number: ");
-    scanf("%f", &num1);
+    do {
+        // header
+        printf("\n--- Simple Calculator ---\n");
 
-    printf("Please Enter operator (+, -, *, /): ");
-    scanf(" %c", &operator);
+        //input
+        printf("Enter first number: ");
+        if (scanf("%f", &num1) != 1) {
+            printf("Invalid input! Please enter a number.\n");
+            while(getchar() != '\n'); // Clear buffer
+            continue;
+        }
 
-    printf("Please Enter second number: ");
-    scanf("%f", &num2);
+        printf("Enter operator (+, -, *, /): ");
+        scanf(" %c", &op);
 
-    switch(operator) {
-        case '+':
-            printf("Result = %.2f\n", num1 + num2);
-            break;
+        printf("Enter second number: ");
+        if (scanf("%f", &num2) != 1) {
+            printf("Invalid input! Please enter a number.\n");
+            while(getchar() != '\n'); // Clear buffer
+            continue;
+        }
 
-        case '-':
-            printf("Result = %.2f\n", num1 - num2);
-            break;
+        printf("------------------------\n");
 
-        case '*':
-            printf("Result = %.2f\n", num1 * num2);
-            break;
+        switch(op) {
+            case '+':
+                printf("Result: %.2f + %.2f = %.2f\n", num1, num2, num1 + num2);
+                break;
+            case '-':
+                printf("Result: %.2f - %.2f = %.2f\n", num1, num2, num1 - num2);
+                break;
+            case '*':
+                printf("Result: %.2f * %.2f = %.2f\n", num1, num2, num1 * num2);
+                break;
+            case '/':
+                if(num2 != 0)
+                    printf("Result: %.2f / %.2f = %.2f\n", num1, num2, num1 / num2);
+                else
+                    printf("Error: Division by zero is not allowed!\n");
+                break;
+            default:
+                printf("Error: '%c' is not a valid operator.\n", op);
+        }
 
-        case '/':
-            if(num2 != 0)
-                printf("Result = %.2f\n", num1 / num2);
-            else
-                printf("Error: Division by zero!\n");
-            break;
+        printf("------------------------\n");
+        printf("Perform another calculation? (y/n): ");
+        scanf(" %c", &choice);
 
-        default:
-            printf("Invalid operator!\n");
-    }
+    } while (choice == 'y' || choice == 'Y');
 
+    printf("Goodbye!\n");
     return 0;
 }
